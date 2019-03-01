@@ -16,53 +16,54 @@ project but as it is extremely useful to other projects I extracted it into an i
 With a healthy Go Language installed, simply run `go get github.com/landonia/simplegoconfiguration/configuration`
 
 ## Example
-    
-	package main
 
-	import (
-		"github.com/landonia/simplegoconfiguration/configuration"
-	)
+```go
+package main
 
-	func main() {	
-		// -------- IN MEMORY STORE --------------------
+import (
+	"github.com/landonia/simplegoconfiguration/configuration"
+)
+
+func main() {	
+	// -------- IN MEMORY STORE --------------------
 	
-		// Create an empty configuration
-		configuration := configuration.Empty()
-		configuration.SetString("assetsdir", "/var/www/website/assets")
-		configuration.SetInt("count", 10)
-		
-		// ------- READ FROM FILE ----------------------
-		
-		// Create new configuration from a file
-		configuration := configuration.NewFromFile("../config.json")
-		err := configuration.ReadFromDisk()
-		if err == nil {
-			assetdir := configuration.GetString("assetsdir")
-			count := configuration.GetInt("count")
-		}
-		
-		// ------ SAVE TO FILE -------------------------
-		
-		// Create a configuration from a file
-		configuration := configuration.NewFromFile("../config.json")
-		
-		// Or use an empty one if using an in memory configuration
-		configuration := configuration.Empty()
-		
-		// You can change the location where to save the file
-		configuration.UpdateFilePath("../config.json")
-		
-		// Set some properties
-		configuration.SetString("assetsdir", "/var/www/website/assets")
-		configuration.SetInt("count", 10)
-		
-		// Save this configuration to disk
-		err := configuration.SaveToDisk
-		if err !=  nil {
-			// Handle the error
-		}
+	// Create an empty configuration
+	configuration := configuration.Empty()
+	configuration.SetString("assetsdir", "/var/www/website/assets")
+	configuration.SetInt("count", 10)
+	
+	// ------- READ FROM FILE ----------------------
+	
+	// Create new configuration from a file
+	configuration := configuration.NewFromFile("../config.json")
+	err := configuration.ReadFromDisk()
+	if err == nil {
+		assetdir := configuration.GetString("assetsdir")
+		count := configuration.GetInt("count")
 	}
 	
+	// ------ SAVE TO FILE -------------------------
+	
+	// Create a configuration from a file
+	configuration := configuration.NewFromFile("../config.json")
+	
+	// Or use an empty one if using an in memory configuration
+	configuration := configuration.Empty()
+	
+	// You can change the location where to save the file
+	configuration.UpdateFilePath("../config.json")
+	
+	// Set some properties
+	configuration.SetString("assetsdir", "/var/www/website/assets")
+	configuration.SetInt("count", 10)
+	
+	// Save this configuration to disk
+	err := configuration.SaveToDisk()
+	if err !=  nil {
+		// Handle the error
+	}
+}
+```	
 ## Future
 
 Allow the configuration to be saved to multiple data stores such as disk or database.
